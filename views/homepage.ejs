@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-Mart</title>
+</head>
+<body>
+    <%- include('home.ejs')
+    %>
+    <div class="wrapper">
+        <div class="content-wrapper">
+			
+            <section class="content-header">
+                <h1>Supermarket Details</h1>
+            </section>
+    
+            <section class="content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Stock Details</h3>
+        
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fas fa-minus"></i></button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                            <i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="card-body table-responsive" style="height:400px">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width:11%">Title</th>
+                                    <th style="width:11%">Type</th>
+                                    <th style="width:11%">Height</th>
+                                    <th style="width:11%">Width</th>
+                                    <th style="width:11%">Price</th>
+                                    <th style="width:11%">Quantity</th>
+                                    <th style="width:11%">Rating</th>
+                                    <th style="width: 20%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <% for(var i=0; i<data.length; i++) { %>
+                              <tr>
+                                <td><%= data[i].title%></td>
+                                <td><%= data[i].type%></td>
+                                <td><%= data[i].height%></td>
+                                <td><%= data[i].width%></td>
+                                <td><%= data[i].price%></td>
+                                <td><%= data[i].quantity%></td>
+                                <td>
+                                    <% if(data[i].rating<=1){%>
+                                        <div class="progress progress-xs">
+                                            <div class="progress-bar bg-danger" style="width:20%"></div>
+                                        </div>
+                                    <% }%>
+                                        <% if(data[i].rating==2){%>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar bg-danger" style="width:40%"></div>
+                                            </div>
+                                        <% }%>
+                                        <% if(data[i].rating==3){%>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar bg-warning" style="width:60%"></div>
+                                            </div>
+                                        <% }%>
+                                        <% if(data[i].rating==4){%>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar bg-success" style="width:80%"></div>
+                                            </div>
+                                        <% }%>
+                                        <% if(data[i].rating==5){%>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar bg-success" style="width:100%"></div>
+                                            </div>
+                                        <% }%>
+                                    
+                                    <small><%= data[i].rating%></small>
+                                </td>
+                                <td class="text-right form-inline">
+
+                                        <a class="btn btn-info btn-sm" href="/update_page?title=<%= data[i].title%>"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                        <form method="POST" action="/delete_data">
+                                            <input type="text" name="title" value="<%= data[i].title%>" style="display: none;">
+                                            <button class="btn" type="submit"><a class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</a></button>
+                                        </form>
+                                    
+                                </td>
+                              </tr>
+                              <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+            
+                </div>
+                <a class="btn btn-primary btn-sm" href="/add_data" style="width:150px"><i class="fas fa-plus"></i> Add new product</a>
+            </section>
+        </div>
+    </div>
+
+</body>
+</html>
